@@ -3,13 +3,22 @@ import Landing from './Landing'
 import Header from './Header'
 import Results from './Results'
 import Search from './Search'
-import {getWeather, get3DForecast } from '../api'
+import {getWeather, get3DForecast, getVideo } from '../api'
 
 class App extends React.Component{
+
+  componentDidMount() {
+    gapi.load('client', () => {
+      this.setState({ apiLoaded: true })
+    })
+  }
+
   constructor(props){
     super(props)
 
     this.state = {
+      videoLink: '',
+      apiLoaded: false,
       displayHeader: false,
       displayLanding: true,
       displayResult: false,
@@ -30,27 +39,27 @@ class App extends React.Component{
                   low: 0,
                   high: 0
         },
-      {           
-                  date:0,                  
+      {
+                  date:0,
                   temp: 0,
                   description: '',
                   icon: '',
                   low: 0,
                   high: 0
     },
-      {           
-                  date:0,                  
+      {
+                  date:0,
                   temp: 0,
                   description: '',
                   icon: '',
                   low: 0,
                   high: 0
         }
-      ]               
+      ]
     }
 
     this.handleSearchClick = this.handleSearchClick.bind(this)
-  
+
   }
 
   removeLanding(){
@@ -74,8 +83,19 @@ class App extends React.Component{
           high: res.main.temp_max
         },
         displayResult: true,
-        
+
       })
+      const query = res.weather[0].description
+      console.log(this.state.apiLoaded)
+      if (this.state.apiLoaded) {
+        getVideo(query)
+        .then((videoLink) => {
+          this.setState({
+            videoLink: videoLink.items[0].id.videoId
+          })
+          console.log(videoLink)
+        })
+      }
 
     })
    get3DForecast(searchterm,(err,res) => {
@@ -89,8 +109,8 @@ class App extends React.Component{
                   low: res.list[1].temp.min,
                   high: res.list[1].temp.max
       },
-        {         
-                  date: res.list[2].dt,                  
+        {
+                  date: res.list[2].dt,
                   temp: res.list[2].temp.day,
                   description: res.list[2].weather[0].description,
                   icon: res.list[2].weather[0].icon,
@@ -98,25 +118,27 @@ class App extends React.Component{
                   high: res.list[2].temp.max
       },
         {
-                  date: res.list[3].dt,                  
+                  date: res.list[3].dt,
                   temp: res.list[3].temp.day,
                   description: res.list[3].weather[0].description,
                   icon: res.list[3].weather[0].icon,
                   low: res.list[3].temp.min,
                   high: res.list[3].temp.max
           }
-        ]                     
+        ]
       })
    })
   }
-  
+
   render(){
+
     return (
       <div className="MainApp">
         {this.state.displayLanding&& <Landing removeLanding={this.removeLanding.bind(this)} />}
         {this.state.displayHeader&& <Header />}
         {this.state.displaySearch&& <Search handleSearchClick={this.handleSearchClick}/>}
-        {this.state.displayResult&& <Results weatherToday={this.state.weatherToday}futureWeather={this.state.futureWeather}/>}
+        {this.state.displayResult&& <Results weatherToday={this.state.weatherToday}futureWeather={this.state.futureWeather} videoLink={this.state.videoLink}/>}
+
       </div>
     )
   }
