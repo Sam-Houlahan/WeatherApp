@@ -13,7 +13,17 @@ test('Shows heading', t => {
   t.is(wrapper.find('.header').exists(), true)
 })
 
-test('Shows the title of the App', t => {
-  const wrapper = mount(<Header />)
-   t.is(wrapper.find('h1').text(), 'React Weather App')
+test('Shows the title of the app', t => {
+  const wrapper = render(<App />)
+  t.is(wrapper.find('h1').text(), 'React Weather App')
+})
+
+test('Shows search form', t => {
+  const wrapper = mount(<App />)
+  t.is(wrapper.find('.searchForm').exists(), true)
+})
+
+test('Shows results section', t => {
+  const wrapper = render(<App />)
+  t.is(wrapper.find('.results').exists(), true)
 })
