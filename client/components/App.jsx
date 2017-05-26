@@ -138,9 +138,14 @@ class App extends React.Component{
         {this.state.displayHeader&& <Header />}
         {this.state.displaySearch&& <Search handleSearchClick={this.handleSearchClick}/>}
         {this.state.displayResult&& <Results weatherToday={this.state.weatherToday}futureWeather={this.state.futureWeather}/>}
+
       </div>
     )
   }
 }
 
 export default App
+
+
+// {this.state.videoLink && <iframe width="560" height="315" src=`https://www.youtube.com/embed/${this.state.videoLink}` frameborder="0" allowfullscreen></iframe>
+// }
