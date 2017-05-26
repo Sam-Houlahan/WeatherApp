@@ -21,10 +21,12 @@ this.setState({
 
 render() {
     return (
-      <div className="searchForm">
+      <div className="searchForm form-group text-center">
           <form onSubmit = {this.handleSubmit.bind(this)}>
-                <input type = 'text'  name= "searchTerm" placeholder="Show me the weather in... city" onChange = {this.handleChange.bind(this)}></input>
-                <button>Search</button>
+              <label for ="search">Location:</label>
+                <input type = 'text'  name= "searchTerm"  className = "form-control" placeholder="Show me the weather in... city" onChange = {this.handleChange.bind(this)}></input>
+                <br/>
+                <button className = " btn btn-lg btn-primary btn-block">Search</button>
            </form>
       </div>
     )
