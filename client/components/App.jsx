@@ -86,12 +86,14 @@ class App extends React.Component{
 
       })
       const query = res.weather[0].description
+      console.log(this.state.apiLoaded)
       if (this.state.apiLoaded) {
-        getVideo(query, (videoLink) => {
+        getVideo(query)
+        .then((videoLink) => {
           this.setState({
             videoLink: videoLink.items[0].id.videoId
           })
-              console.log(videoLink.items[0].id.videoId)
+          console.log(videoLink)
         })
       }
 
@@ -127,7 +129,7 @@ class App extends React.Component{
       })
    })
   }
-  
+
   render(){
 
     return (
@@ -135,7 +137,7 @@ class App extends React.Component{
         {this.state.displayLanding&& <Landing removeLanding={this.removeLanding.bind(this)} />}
         {this.state.displayHeader&& <Header />}
         {this.state.displaySearch&& <Search handleSearchClick={this.handleSearchClick}/>}
-        {this.state.displayResult&& <Results weatherToday={this.state.weatherToday}futureWeather={this.state.futureWeather}/>}
+        {this.state.displayResult&& <Results weatherToday={this.state.weatherToday}futureWeather={this.state.futureWeather} videoLink={this.state.videoLink}/>}
 
       </div>
     )
@@ -143,7 +145,3 @@ class App extends React.Component{
 }
 
 export default App
-
-
-// {this.state.videoLink && <iframe width="560" height="315" src=`https://www.youtube.com/embed/${this.state.videoLink}` frameborder="0" allowfullscreen></iframe>
-// }

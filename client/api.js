@@ -7,7 +7,7 @@ module.exports = {
 }
 
 function getVideo (query) {
-  gapi.client.init({
+  return gapi.client.init({
     'apiKey': 'AIzaSyAcCIkK_3m1zTuiSizzxgwTmzEeEV7V4Vw',
     // clientId and scope are optional if auth is not required.
     'clientId': 'weather-app-168801',
@@ -18,7 +18,7 @@ function getVideo (query) {
       'path': 'https://www.googleapis.com/youtube/v3/search?part=snippet&q='+query,
     })
   }).then(function(response) {
-    console.log(response.result);
+    return response.result
   }, function(reason) {
     console.log('Error: ' + reason.result.error.message);
   });
