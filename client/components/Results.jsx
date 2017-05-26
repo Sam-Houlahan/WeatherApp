@@ -12,11 +12,9 @@ export default (props) => {
     <div className='results'>
       <h2>{props.weatherToday.city}</h2>
       <div className="row">
-      <h2>Today's Weather</h2>
-      <div className="col-md-4">
-      </div>
-      <div className='today col-md-4'>
-       <h4> {todayDay}</h4>
+        <h2>Today's Weather</h2>
+      <div className='today col-md-12'>
+       <h4>{todayDay}</h4>
             <div className="temperature">
                 <p>
                 {Math.ceil(props.weatherToday.temp)}℃
@@ -45,7 +43,7 @@ export default (props) => {
 
 
 
-     <div className="future">
+    <div className="future col-md-12">
      <div className="youtubevideowrap">
 
 <div className="video video-container">
@@ -73,7 +71,7 @@ export default (props) => {
     })}
       </div>
     </div>
-    </div>
-    </div>
+  </div>
+</div>
   )
 }
